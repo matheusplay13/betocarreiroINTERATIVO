@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beto Carrero World – Sua Aventura Começa Aqui</title>
+  <meta name="description" content="Planeje sua visita ao Beto Carrero World! Mapa interativo com checklist, avaliações e feedback." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="logo-icon">🎢</span>
+        <span class="logo-text">Beto Carrero</span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#mapa" class="nav-link">🗺️ Mapa / Checklist</a></li>
+        <li><a href="#avaliacoes" class="nav-link">⭐ Avaliações</a></li>
+        <li><a href="#feedback" class="nav-link">💬 Feedback</a></li>
+        <li><a href="#admin" class="nav-link nav-admin">🔒 Admin</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🎡 Parque Nº 1 do Brasil</div>
+      <h1 class="hero-title">Beto Carrero <span class="hero-title-accent">World</span></h1>
+      <p class="hero-subtitle">Marque os brinquedos direto no mapa, avalie cada atração e compartilhe sua experiência!</p>
+      <div class="hero-buttons">
+        <a href="#mapa" class="btn btn-primary">🗺️ Abrir Mapa</a>
+        <a href="#avaliacoes" class="btn btn-outline">⭐ Avaliações</a>
+      </div>
+
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Role para baixo</span>
+      <div class="scroll-arrow">↓</div>
+    </div>
+  </section>
+
+  <!-- MAPA / CHECKLIST -->
+  <section class="section section-dark" id="mapa">
+    <div class="container-wide">
+      <div class="section-header">
+        <div class="section-tag">🗺️ Mapa Interativo</div>
+        <h2 class="section-title">Monte seu checklist no mapa</h2>
+        <p class="section-subtitle">Clique em qualquer ponto do mapa para marcar um brinquedo. Clique no pin para registrar como visitado.</p>
+      </div>
+
+      <div class="map-layout">
+
+        <!-- Sidebar -->
+        <div class="map-sidebar">
+
+
+
+          <div class="sidebar-actions">
+            <button class="btn btn-ghost btn-full" id="clearAll">🗑️ Remover todos os pins</button>
+          </div>
+
+          <div class="sidebar-list-wrap">
+            <div class="sl-title">Brinquedos no mapa</div>
+            <div class="sidebar-list" id="sidebarList">
+              <div class="sl-empty" id="slEmpty">Nenhum pin ainda.<br>Clique no mapa para começar! 👆</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mapa principal -->
+        <div class="map-main">
+          <div class="map-container" id="mapContainer">
+            <img src="MAPA BETO CARREIR.png" alt="Mapa do Beto Carrero World"
+                 class="map-img" id="mapImg" draggable="false" />
+
+            <!-- Pins gerados dinamicamente pelo JS -->
+            <div id="pinsLayer"></div>
+
+            <!-- Popup que aparece ao clicar no mapa -->
+            <div class="pin-popup hidden" id="pinPopup">
+              <div class="pin-popup-header">📍 Adicionar brinquedo</div>
+              <input type="text" id="pinNameInput" class="pin-popup-input"
+                     placeholder="Nome do brinquedo..." maxlength="40" />
+              <div class="pin-popup-actions">
+                <button class="btn btn-ghost btn-sm" id="pinCancelBtn">Cancelar</button>
+                <button class="btn btn-primary btn-sm" id="pinConfirmBtn">Adicionar ✓</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="map-footer-tip">
+            💡 <strong>Clique em qualquer lugar do mapa</strong> para adicionar um pin. Depois clique no pin para marcar como visitado, ou no <strong>×</strong> para remover.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÕES -->
+  <section class="section" id="avaliacoes">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">⭐ Avaliações</div>
+        <h2 class="section-title">Avalie os Brinquedos</h2>
+        <p class="section-subtitle">Clique nas estrelas para avaliar cada atração</p>
+      </div>
+
+      <div class="rating-filter">
+        <button class="filter-btn active" data-rfilter="all" id="rFilterAll">Todos</button>
+        <button class="filter-btn" data-rfilter="radical">🔥 Radical</button>
+        <button class="filter-btn" data-rfilter="familia">👨‍👩‍👧 Família</button>
+        <button class="filter-btn" data-rfilter="infantil">🧸 Infantil</button>
+        <button class="filter-btn" data-rfilter="agua">💧 Água</button>
+        <button class="filter-btn" data-rfilter="pago">💳 Pago</button>
+      </div>
+
+      <div class="ratings-list" id="ratingsGrid"></div>
+    </div>
+  </section>
+
+  <!-- FEEDBACK -->
+  <section class="section section-dark" id="feedback">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">💬 Feedback</div>
+        <h2 class="section-title">Deixe seu Comentário</h2>
+        <p class="section-subtitle">Sua experiência é muito importante para nós!</p>
+      </div>
+
+      <div class="feedback-layout">
+        <form class="feedback-form" id="feedbackForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="fbName">Seu nome *</label>
+              <input type="text" id="fbName" class="form-input" placeholder="João Silva" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fbEmail">E-mail</label>
+              <input type="email" id="fbEmail" class="form-input" placeholder="joao@email.com" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fbVisit">Data da visita</label>
+            <input type="date" id="fbVisit" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Experiência geral</label>
+            <div class="emoji-rating" id="emojiRating">
+              <button type="button" class="emoji-btn" data-val="1" title="Ruim">😞</button>
+              <button type="button" class="emoji-btn" data-val="2" title="Regular">😐</button>
+              <button type="button" class="emoji-btn" data-val="3" title="Bom">😊</button>
+              <button type="button" class="emoji-btn" data-val="4" title="Muito bom">😄</button>
+              <button type="button" class="emoji-btn" data-val="5" title="Incrível!">🤩</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fbMsg">Seu comentário *</label>
+            <textarea id="fbMsg" class="form-input form-textarea" placeholder="Conte como foi sua experiência no parque..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" id="submitFeedback">Enviar Feedback 🚀</button>
+        </form>
+
+        <div class="feedback-wall">
+          <h3 class="wall-title">💬 O que os visitantes dizem</h3>
+          <div class="wall-list" id="wallList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN -->
+  <section class="section admin-section" id="admin">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">🔒 Administrador</div>
+        <h2 class="section-title">Painel Administrativo</h2>
+        <p class="section-subtitle">Acesso restrito para gerenciamento do parque</p>
+      </div>
+
+      <div class="admin-login" id="adminLogin">
+        <div class="login-card">
+          <div class="login-icon">🔐</div>
+          <h3 class="login-title">Acesso Admin</h3>
+          <div class="form-group">
+            <label class="form-label" for="adminUser">Usuário</label>
+            <input type="text" id="adminUser" class="form-input" placeholder="admin" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="adminPass">Senha</label>
+            <input type="password" id="adminPass" class="form-input" placeholder="••••••••" />
+          </div>
+          <p class="login-hint">Dica: usuário <strong>admin</strong> / senha <strong>beto2024</strong></p>
+          <button class="btn btn-primary btn-full" id="loginBtn">Entrar</button>
+          <div class="login-error" id="loginError">❌ Credenciais inválidas</div>
+        </div>
+      </div>
+
+      <div class="admin-dashboard hidden" id="adminDashboard">
+        <div class="admin-header-bar">
+          <div class="admin-welcome">👋 Bem-vindo, Admin!</div>
+          <button class="btn btn-ghost btn-sm" id="logoutBtn">Sair</button>
+        </div>
+        <div class="admin-stats-row">
+          <div class="admin-stat-card">
+            <div class="asc-icon">⭐</div>
+            <div class="asc-val" id="ascTotalRatings">0</div>
+            <div class="asc-label">Avaliações</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="asc-icon">💬</div>
+            <div class="asc-val" id="ascTotalFeedbacks">0</div>
+            <div class="asc-label">Feedbacks</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="asc-icon">🎯</div>
+            <div class="asc-val" id="ascAvgRating">0.0</div>
+            <div class="asc-label">Nota Média</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="asc-icon">🏆</div>
+            <div class="asc-val" id="ascTopRide">—</div>
+            <div class="asc-label">Mais Bem Avaliado</div>
+          </div>
+        </div>
+        <div class="admin-panels">
+          <div class="admin-panel">
+            <h3 class="panel-title">⭐ Avaliações por Brinquedo</h3>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Brinquedo</th>
+                    <th>Categoria</th>
+                    <th>Avaliações</th>
+                    <th>Nota Média</th>
+                    <th>Estrelas</th>
+                  </tr>
+                </thead>
+                <tbody id="adminTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="admin-panel">
+            <h3 class="panel-title">💬 Feedbacks Recentes</h3>
+            <div class="feedback-admin-list" id="feedbackAdminList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="logo-icon">🎢</span>
+          <span class="logo-text">Beto Carrero World</span>
+        </div>
+        <p class="footer-text">Site não oficial criado com ❤️ por fãs do parque.</p>
+        <p class="footer-copy">© 2024 Beto Carrero World Fan Site</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
